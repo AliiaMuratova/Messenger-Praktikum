@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import template from './Profile.hbs?raw';
 import { passwordToggle } from '@/utils/passwordToggle';
-import sendIcon from '@/assets/icons/send_Icon.svg';
+import sendIcon from '@/assets/icons/send_icon.svg';
 
 export const ProfilePage = {
   render: () => {
