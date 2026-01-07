@@ -58,4 +58,3 @@ export class App {
     this.render();
   }
 }
-

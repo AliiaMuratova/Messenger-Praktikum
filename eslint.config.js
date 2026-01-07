@@ -19,6 +19,7 @@ export default [
       'quotes': ['error', 'single'],
       'indent': ['error', 2],
       'no-unused-vars': 'warn',
+      'eol-last': ['error', 'always']
     },
   },
   {

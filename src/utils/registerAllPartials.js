@@ -16,4 +16,3 @@ export function registerAllPartials() {
     Handlebars.registerPartial(partialName, content);
   });
 }
-

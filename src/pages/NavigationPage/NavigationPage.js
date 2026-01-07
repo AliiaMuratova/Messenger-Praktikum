@@ -16,4 +16,3 @@ export const NavigationPage = {
     return Handlebars.compile(template)(context);
   }
 };
-
