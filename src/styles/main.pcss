@@ -1,0 +1,96 @@
+@import "./base/reset.pcss";
+@import "./base/variables.pcss";
+
+@import "@/components/common/Button/Button.pcss";
+@import "@/components/common/Input/Input.pcss";
+@import "@/components/Form/Form.pcss";
+@import "@/components/Modal/Modal.pcss";
+
+@import "@/pages/ErrorPage/Error.pcss";
+@import "@/pages/NavigationPage/Navigation.pcss";
+
+@import "@/pages/ChatPage/components/ChatSideBar/ChatSideBar.pcss";
+@import "@/pages/ChatPage/components/ChatWindow/ChatWindow.pcss";
+@import "@/pages/ChatPage/components/MessageBubble/MessageBubble.pcss";
+@import "@/pages/ChatPage/components/ChatEmptyView/ChatEmptyView.pcss";
+
+@import "@/pages/ProfilePage/Profile.pcss";
+@import "@/pages/ProfilePage/components/ProfileInput/ProfileInput.pcss";
+
+
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-stretch: 100%;
+  font-style: normal;
+  font-display: swap;
+  font-optical-sizing: auto;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100%;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-400);
+  color: var(--color-text-primary);
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app {
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-14);
+}
+
+.password-control {
+  position: absolute;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  background: url('../assets/icons/closed_eye.svg') no-repeat center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.password-control--isvisible {
+  width: 18px;
+  height: 18px;
+  right: 6px;
+  background: url('../assets/icons/opened_eye.svg') no-repeat center;
+  background-size: contain;
+}
+
+main {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+}

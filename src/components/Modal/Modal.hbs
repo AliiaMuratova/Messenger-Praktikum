@@ -1,0 +1,22 @@
+<div class="modal-wrapper">
+
+  <div class="modal">
+    <button class="close-button" id="closeModal" aria-label="Закрыть"></button>
+    <h1 class="modal__title">{{title}}</h1>
+
+    {{#if changeAvatar}}
+    <form>
+      <label class="modal__upload_text" for="uploadFile">
+        Выберите файл на <br /> компьютере
+      </label>
+      <input hidden type="file" id="uploadFile" name="photo" accept="image/jpeg, image/png, image/webp">
+    </form>
+    {{else}}
+    <form>
+      {{> Input type="text" name="login" label="Логин"}}
+    </form>
+    {{/if}}
+    {{> Button text=text type="submit"}}
+  </div>
+
+</div>

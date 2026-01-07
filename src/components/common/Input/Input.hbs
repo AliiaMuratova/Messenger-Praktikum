@@ -1,0 +1,20 @@
+<div class="field {{class}}">
+  <input 
+    id="{{name}}" 
+    class="field__input" 
+    type="{{type}}" 
+    name="{{name}}" 
+    placeholder=" "
+    autocomplete="off"
+    {{#if required}}required{{/if}}
+  >
+  <label class="field__label" for="{{name}}">{{label}}</label>
+
+  {{#if isPassword}}
+    <button type="button" class="password-control field__password-control" data-target="{{name}}"></button>
+  {{/if}}
+    
+  {{#if isError}}
+    <span class="field__error">{{error}}</span>
+  {{/if}}
+</div>

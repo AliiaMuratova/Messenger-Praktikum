@@ -1,0 +1,35 @@
+<div class="layout">
+  <aside class="side-bar">
+    <img src="{{sendIcon}}" alt="icon">
+  </aside>
+
+  <main class="app">
+    <div class="profile-page">
+      <div class="avatar">
+        <img class="avatar__photo" src="" alt="photo">
+        <div class="avatar__change_photo">Поменять<br/> аватар</div>
+        <h1 class="avatar__name">Иван</h1>
+      </div>
+
+      <form class="profile-form" action="" id="profileForm">
+        {{#each fields}}{{> ProfileInput}}{{/each}}
+      </form>
+
+      <div class="buttons">
+        <div class="buttons__btn">
+          <button type="button" id="editProfile">Изменить данные</button>
+        </div>
+
+        <div class="buttons__btn">
+          <button type="button" id="editPassword">Изменить пароль</button>
+        </div>
+
+        <div class="buttons__btn">
+          <a href="/login" class="red" data-link>Выйти</a>
+        </div>
+      </div>
+      {{> Button text="Сохранить" type="submit" class="hidden"}}
+    </div>
+
+  </main>
+</div>

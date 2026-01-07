@@ -1,0 +1,40 @@
+<aside class="sidebar">
+  <div class="sidebar__search">
+    <a href="/profile" class="sidebar__search-profile" data-link>Профиль</a>
+    <div class="sidebar__search-wrapper">
+      <input class="sidebar__search-input" type="text" placeholder="Поиск">
+      <img class="sidebar__search-icon" src={{searchIcon}} alt="search">
+    </div>
+
+  </div>
+
+  {{#if isEmpty}}
+  <div class="sidebar__empty">
+    <p class="sidebar__empty-text">Нет активных диалогов</p>
+  </div>
+  {{else}}
+  <ul class="sidebar__dialogs">
+    {{#each dialogs}}
+    <li class="sidebar__dialog">
+      <div class="sidebar__dialog-content">
+        <div class="sidebar__dialog-img">
+          <img class="sidebar__dialog-avatar" src="" alt="avatar">
+        </div>
+
+        <div class="sidebar__dialog-info">
+          <div class="sidebar__dialog-username">{{name}}</div>
+          <div class="sidebar__dialog-message">{{message}}</div>
+        </div>
+
+        <div class="sidebar__dialog-counttime">
+          <div class="sidebar__dialog-time">{{time}}</div>
+          {{#if count}}
+          <div class="sidebar__dialog-count">{{count}}</div>
+          {{/if}}
+        </div>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</aside>

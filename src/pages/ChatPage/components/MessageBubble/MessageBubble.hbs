@@ -1,0 +1,18 @@
+{{#if picture}}
+<div class="message-picture">
+  <img class="message-picture__image" src="{{picture}}" alt="picture">
+  <div class="status_time">
+    <div class="picture_time">{{time}}</div>
+  </div>
+</div>
+{{else}}
+<div class="message-bubble {{#if isIncoming}}incoming{{else}}outgoing{{/if}}">
+  <div>{{text}}</div>
+  <div class="status_time">
+    {{#unless isIncoming}}
+    <div><img src="{{icon}}" alt="icon"></div>
+    {{/unless}}
+    <div class="{{#if isIncoming}}incoming_time{{else}}outgoing_time{{/if}}">{{time}}</div>
+  </div>
+</div>
+{{/if}}

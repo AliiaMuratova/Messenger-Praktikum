@@ -1,0 +1,14 @@
+<main class="app">
+  {{#> Form
+  title="Вход"
+  formId="loginForm"
+  buttonText="Авторизоваться"
+  linkText="Нет аккаунта?"
+  linkHref="/signup"
+  }}
+
+  {{> Input type="text" name="login" label="Логин" isError=true error="Неверный логин"}}
+  {{> Input type="password" name="password" label="Пароль" isPassword=true error="Неверный пароль"}}
+
+  {{/Form}}
+</main>

@@ -1,0 +1,8 @@
+<div class="input-field">
+  <label class="input-field__label" for="">{{label}}</label>
+  <input id="{{name}}" name="{{name}}" class="input-field__input {{#if isPassword}}input-field__password{{/if}}"
+    type="{{type}}" value="{{value}}" readOnly>
+  {{#if isPassword}}
+  <button type="button" class="password-control input-field__password-control" data-target="{{name}}"></button>
+  {{/if}}
+</div>
