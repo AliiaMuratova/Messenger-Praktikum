@@ -84,4 +84,4 @@ npm run lint
 ## Ссылки
 
 - [Макет в Figma](https://www.figma.com/design/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=1-537&t=bmTTWnQznrmOVH6m-0) - дизайн-макет проекта
-
+- [Деплой проекта](https://messenger-app-praktikum.netlify.app) - ссылка на развёрнутую версию приложения
