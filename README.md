@@ -5,12 +5,13 @@ Messenger - реализован как SPA с клиентской маршру
 
 Список страниц:
 
-- **Навигация** (`/`) - главная страница с навигацией
-- **Вход** (`/login`) - страница входа
-- **Регистрация** (`/signup`) - страница регистрации
-- **Чат** (`/chat`) - страница с мессенджером (со списком чатов и диалоговым окном)
-- **Профиль** (`/profile`) - страница управления профилем юзера
-- **Ошибки** (`/error404`, `/error500`) - страницы обработки ошибок 404 и 500
+- [Навигация](https://messenger-app-praktikum.netlify.app) - главная страница с навигацией
+- [Вход](https://messenger-app-praktikum.netlify.app/login) - страница входа
+- [Регистрация](https://messenger-app-praktikum.netlify.app/signup) - страница регистрации
+- [Чат](https://messenger-app-praktikum.netlify.app/chat) - страница с мессенджером (со списком чатов и диалоговым окном)
+- [Профиль](https://messenger-app-praktikum.netlify.app/profile) - страница управления профилем юзера
+- [Ошибка 404](https://messenger-app-praktikum.netlify.app/error404) - страница обработки ошибки 404
+- [Ошибка 500](https://messenger-app-praktikum.netlify.app/error500) - страница обработки ошибки 500
 
 ## Стек
 
