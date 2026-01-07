@@ -3,11 +3,9 @@ import template from './Chat.hbs?raw';
 import searchIcon from '@/assets/icons/search_icon.svg';
 import dotsIcon from '@/assets/icons/dots.svg';
 import fileIcon from '@/assets/icons/import_file.svg';
-import sendIcon from '@/assets/icons/send_Icon.svg';
+import sendIcon from '@/assets/icons/send_icon.svg';
 import readIcon from '@/assets/icons/read_message_status.svg';
 import pic from '@/assets/images/picture.png';
-import { ChatWindow } from './components/ChatWindow/ChatWindow.js';
-import { ChatSideBar } from './components/ChatSideBar/ChatSideBar.js';
 
 export const ChatPage = {
   render: () => {
@@ -26,10 +24,5 @@ export const ChatPage = {
       ]
     };
     return Handlebars.compile(template)(context);
-  },
-
-  init: () => {
-    ChatWindow.init();
-    ChatSideBar.init();
   }
 };
