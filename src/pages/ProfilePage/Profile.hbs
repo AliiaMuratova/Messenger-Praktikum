@@ -12,7 +12,11 @@
       </div>
 
       <form class="profile-form" action="" id="profileForm">
-        {{#each fields}}{{> ProfileInput}}{{/each}}
+        <fieldset class="profile-form__section">
+          <legend class="profile-form__hidden">Данные профиля</legend>
+          {{#each fields}}{{> ProfileInput}}{{/each}}
+        </fieldset>
+        {{> Button text="Сохранить" class="hidden" type="submit"}}
       </form>
 
       <div class="buttons">
@@ -28,8 +32,6 @@
           <a href="/login" class="red" data-link>Выйти</a>
         </div>
       </div>
-      {{> Button text="Сохранить" type="submit" class="hidden"}}
     </div>
-
   </main>
 </div>
