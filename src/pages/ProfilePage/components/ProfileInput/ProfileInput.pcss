@@ -1,0 +1,35 @@
+.input-field {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: var(--font-weight-500);
+  padding: 0 0 10px 0;
+
+  &__input {
+    width: 50%;
+    font-size: var(--text-16);
+    color: var(--color-text-secondary);
+    text-align: right;
+  }
+
+  &__password {
+    padding-right: 30px;
+  }
+
+  &__label {
+    width: 40%;
+    font-size: var(--text-16);
+    color: var(--color-text-primary);
+    pointer-events: none;
+  }
+
+  &__password-control {
+    top: 5px;
+  }
+}
+
+.input-field:last-child {
+  border-bottom: none;
+}
