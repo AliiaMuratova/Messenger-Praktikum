@@ -2,7 +2,7 @@ import { Block, BlockProps } from '@/core/Block';
 import searchIcon from '@/assets/icons/search_icon.svg';
 import template from './ChatSideBar.hbs?raw';
 import { DialogItem, DialogData } from '../DialogItem/DialogItem';
-import noImage from '@/assets/images/Image-not-found.png';
+import noImage from '@/assets/images/image-not-found.png';
 
 interface ChatSideBarProps extends BlockProps {
   searchIcon?: string;

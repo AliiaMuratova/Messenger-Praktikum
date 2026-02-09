@@ -4,7 +4,7 @@ import pic from '@/assets/images/picture.png';
 import template from './ChatWindow.hbs?raw';
 import { MessageBubble, MessageBubbleProps } from '../MessageBubble/MessageBubble';
 import { MessageForm } from '../MessageForm';
-import noImage from '@/assets/images/Image-not-found.png';
+import noImage from '@/assets/images/image-not-found.png';
 
 interface ChatWindowProps extends BlockProps {
   name: string;

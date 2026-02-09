@@ -3,7 +3,7 @@ import { BlockProps } from '@/core/Block';
 import template from './Profile.hbs?raw';
 import { ProfileInputProps } from './components/ProfileInput/ProfileInput';
 import sendIcon from '@/assets/icons/send_icon.svg';
-import noImage from '@/assets/images/Image-not-found.png';
+import noImage from '@/assets/images/image-not-found.png';
 import { ProfileInput } from './components/ProfileInput';
 import { ProfileForm } from './components/ProfileForm';
 import './Profile.pcss';
