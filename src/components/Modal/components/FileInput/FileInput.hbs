@@ -1,0 +1,19 @@
+<label class="file-input{{#if error}} file-input--error{{/if}}">
+  <span class="file-input__text">
+    {{#if error}}
+      {{error}}
+    {{else if fileName}}
+      {{fileName}}
+    {{else}}
+      {{{placeholder}}}
+    {{/if}}
+  </span>
+  <input 
+    class="file-input__native" 
+    type="file" 
+    name="{{name}}" 
+    {{#if accept}}accept="{{accept}}"{{/if}}
+    hidden
+  >
+</label>
+

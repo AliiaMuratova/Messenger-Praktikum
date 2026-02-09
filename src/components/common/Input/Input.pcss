@@ -1,41 +1,48 @@
 .field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
-  padding-top: 15px;
+  padding-top: 10px;
   width: 100%;
-  max-width: 280px;
+
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--primary);
+  }
 
   &__input {
-    width: 100%;
+    width: 90%;
     padding: 7px 0;
     font-size: var(--text-16);
     color: var(--color-text-primary);
     background: transparent;
     transition: border-color var(--transition-base);
-    border-bottom: 1px solid var(--primary);
 
-    &:focus+.field__label,
-    &:not(:placeholder-shown)+.field__label {
+    &:focus + .field__label,
+    &:not(:placeholder-shown) + .field__label,
+    &:-webkit-autofill + .field__label {
       top: 0;
       font-size: var(--text-12);
     }
   }
+ 
 
   &__label {
     position: absolute;
     left: 0;
-    top: 21px;
+    top: 17px;
     font-size: var(--text-16);
     color: var(--color-text-secondary);
     pointer-events: none;
     transition: all var(--transition-base);
   }
 
-  &__password-control {
-    top: 25px;
-  }
-
   &__error {
     color: var(--color-text-error);
     font-size: var(--text-12);
+    margin-top: 7px;
   }
 }

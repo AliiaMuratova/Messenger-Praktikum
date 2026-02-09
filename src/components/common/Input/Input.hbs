@@ -1,20 +1,29 @@
-<div class="field {{class}}">
-  <input 
-    id="{{name}}" 
-    class="field__input" 
+<div class="field {{wrapperClassName}}">
+  <div class="field__input-wrapper {{inputWrapperClassName}} ">
+    <input 
+    id="{{name}}"
+    class="field__input {{className}}" 
     type="{{type}}" 
     name="{{name}}" 
-    placeholder=" "
-    autocomplete="off"
-    {{#if required}}required{{/if}}
+    placeholder="{{placeholder}}"
+    autocomplete="{{#if isPassword}}new-password{{else}}off{{/if}}"
+    value="{{value}}"
+    {{#if isReadonly}}readOnly{{/if}}
   >
-  <label class="field__label" for="{{name}}">{{label}}</label>
+
+  {{#if label}}
+    <label class="field__label" for="{{name}}">{{label}}</label>
+  {{/if}}
 
   {{#if isPassword}}
-    <button type="button" class="password-control field__password-control" data-target="{{name}}"></button>
+    <button type="button" 
+    class="password-control field__password-control {{#if isPasswordVisible}}password-control--isvisible{{/if}}">
+    </button>
   {{/if}}
+
+</div>
     
   {{#if isError}}
-    <span class="field__error">{{error}}</span>
+    <span class="field__error {{errorClassName}}">{{error}}</span>
   {{/if}}
 </div>

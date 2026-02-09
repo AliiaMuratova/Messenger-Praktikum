@@ -2,14 +2,13 @@
   <h1 class="form__title">{{title}}</h1>
 
   <div class="form__content">
-    {{> @partial-block }}
+    {{{inputs}}} 
   </div>
 
   <div class="form__actions">
-    {{> Button text=buttonText type="submit"}}
+    {{{submitButton}}}
     {{#if linkText}}
     <a href="{{linkHref}}" class="link" data-link>{{linkText}}</a>
     {{/if}}
   </div>
-
 </form>
