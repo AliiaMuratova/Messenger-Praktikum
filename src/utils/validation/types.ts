@@ -11,4 +11,7 @@ export enum ValidationType {
   Password = 'password',
   Phone = 'phone',
   Message = 'message',
+  OldPassword = 'oldPassword',
+  NewPassword = 'newPassword',
+  ConfirmPassword = 'confirmPassword',
 }

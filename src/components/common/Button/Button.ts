@@ -6,9 +6,6 @@ interface ButtonProps extends BlockProps {
   type?: 'button' | 'submit' | 'reset';
   class?: string;
   id?: string;
-  events?: {
-    click?: (e: Event) => void;
-  };
 }
 
 export class Button extends Block<ButtonProps> {
@@ -16,4 +13,3 @@ export class Button extends Block<ButtonProps> {
     return this.compile(template, this.props);
   }
 }
-

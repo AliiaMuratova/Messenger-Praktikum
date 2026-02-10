@@ -20,9 +20,9 @@ const profileFields: ProfileInputProps[] = [
 ];
 
 const passwordFields: ProfileInputProps[] = [
-  { name: 'old_password', label: 'Старый пароль', value: '', type: 'password', isPassword: true },
-  { name: 'password', label: 'Новый пароль', value: '', type: 'password', isPassword: true },
-  { name: 'repeat_password', label: 'Повторите новый пароль', value: '', type: 'password', isPassword: true },
+  { name: 'oldPassword', label: 'Старый пароль', value: '', type: 'password', isPassword: true },
+  { name: 'newPassword', label: 'Новый пароль', value: '', type: 'password', isPassword: true },
+  { name: 'confirmPassword', label: 'Повторите новый пароль', value: '', type: 'password', isPassword: true },
 ];
 
 interface ProfilePageProps extends BlockProps {
@@ -40,10 +40,33 @@ export class ProfilePage extends Block<ProfilePageProps> {
       ...f,
       isReadonly: true,
     }));
-    const passwordInputs = passwordFields.map(f => new ProfileInput({
-      ...f,
-      isReadonly: true,
-    }));
+    const passwordInputs: ProfileInput[] = [];
+    
+    passwordFields.forEach(f => {
+      const input = new ProfileInput({
+        ...f,
+        isReadonly: true,
+        ...(f.name === 'newPassword' && {
+          onBlur: () => {
+            const confirmInput = passwordInputs.find(
+              input => input.getName() === 'confirmPassword'
+            );
+            if (confirmInput?.getValue()) {
+              confirmInput.validate();
+            }
+          }
+        }),
+        ...(f.name === 'confirmPassword' && {
+          getCompareValue: () => {
+            const newPasswordInput = passwordInputs.find(
+              input => input.getName() === 'newPassword'
+            );
+            return newPasswordInput?.getValue() || '';
+          }
+        })
+      });
+      passwordInputs.push(input);
+    });
 
     super({
       sendIcon,
@@ -72,9 +95,9 @@ export class ProfilePage extends Block<ProfilePageProps> {
       }),
       events: {
         click: (e: TEvent) => {
-          const target = e.target as HTMLElement;
-  
-          if (target.closest('[data-modal]')) {
+          if (!(e.target instanceof HTMLElement)) return;
+
+          if (e.target.closest('[data-modal]')) {
             (this.children.changeAvatarModal as Modal)?.open();
           }
         },

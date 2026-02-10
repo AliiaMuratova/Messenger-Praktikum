@@ -40,7 +40,10 @@ export class ProfileForm extends Block<ProfileFormProps> {
 
   private _handleButtonsClick(e: TEvent) {
     const event = e as MouseEvent;
-    const target = event.target as HTMLElement;
+    const target = event.target;
+
+    if (!(target instanceof HTMLElement)) return;
+
     const button = target.closest('button');
     if (!button || button.type === 'submit') return;
 
@@ -57,6 +60,12 @@ export class ProfileForm extends Block<ProfileFormProps> {
         isPasswordMode: isEditPassword
       });
     } else if (isCancelButton) {
+      const profileFields = this.children.profileFields as ProfileInput[];
+      const passwordFields = this.children.passwordFields as ProfileInput[];
+
+      profileFields.forEach(input => input.clearError());
+      passwordFields.forEach(input => input.clearError());
+
       this.setChildrenProps('profileFields', { isReadonly: true });
       this.setChildrenProps('passwordFields', { isReadonly: true });
 
@@ -78,15 +87,18 @@ export class ProfileForm extends Block<ProfileFormProps> {
 
     if (!activeInputs) return;
 
-    const isFormValid = activeInputs.every(input => input.validate());
+    const validationResults = activeInputs.map(input => input.validate());
+    const isFormValid = validationResults.every(Boolean);
     if (!isFormValid) return;
 
-    const formData = new FormData(event.target as HTMLFormElement);
+    if (!(event.target instanceof HTMLFormElement)) return;
+
+    const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     console.log('Данные формы:', data);
 
     activeInputs.forEach(input => {
-      const inputElement = input.element?.querySelector('input') as HTMLInputElement;
+      const inputElement = input.element?.querySelector<HTMLInputElement>('input');
       if (inputElement) {
         input.setProps({
           value: inputElement.value,

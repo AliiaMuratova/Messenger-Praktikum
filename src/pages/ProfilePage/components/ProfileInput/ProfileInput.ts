@@ -12,6 +12,8 @@ export interface ProfileInputProps extends BlockProps {
   value?: string;
   isPassword?: boolean;
   isReadonly?: boolean;
+  getCompareValue?: () => string;
+  onBlur?: () => void;
 }
 
 export class ProfileInput extends Block<ProfileInputProps> {
@@ -48,10 +50,23 @@ export class ProfileInput extends Block<ProfileInputProps> {
     return input?.getValue() || '';
   }
 
+  public getName(): string {
+    return this.props.name;
+  }
+
+  public clearError(): void {
+    const input = this.children.input as Input;
+    input.setProps({
+      error: '',
+      isError: false,
+    });
+  }
+
   public validate(): boolean {
     const input = this.children.input as Input;
     const value = input?.getValue() || '';
-    const { isValid, message } = validateInput(input.getName() as ValidationType, value);
+    const compareValue = this.props.getCompareValue?.();
+    const { isValid, message } = validateInput(input.getName() as ValidationType, value, compareValue);
 
     if (input?.element?.isConnected) {
       requestAnimationFrame(() => {
@@ -68,6 +83,7 @@ export class ProfileInput extends Block<ProfileInputProps> {
 
   private _handleBlur() {
     this.validate();
+    this.props.onBlur?.();
   }
 
   

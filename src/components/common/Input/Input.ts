@@ -34,7 +34,8 @@ export class Input extends Block<InputProps> {
       events: {
         ...props.events,
         input: (e: TEvent) => {
-          const value = (e.target as HTMLInputElement).value || '';
+          if (!(e.target instanceof HTMLInputElement)) return;
+          const value = e.target.value || '';
           props.onInput?.(value || '');
         },
         blur: () => {
@@ -44,8 +45,8 @@ export class Input extends Block<InputProps> {
           props.onBlur?.();
         },
         mousedown: (e: TEvent) => {
-          const target = e.target as HTMLElement;
-          if (target.closest('.password-control')) {
+          if (!(e.target instanceof HTMLElement)) return;
+          if (e.target.closest('.password-control')) {
             e.preventDefault();
             this._togglePasswordVisibility();
           }
@@ -57,8 +58,8 @@ export class Input extends Block<InputProps> {
 
   public getValue(): string {
     const input = this.element?.querySelector('input');
-    if (input) {
-      return (input as HTMLInputElement).value;
+    if (input instanceof HTMLInputElement) {
+      return input.value;
     }
     return this.props.value || '';
   }

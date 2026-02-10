@@ -29,8 +29,10 @@ export class App {
     this.render();
 
     document.addEventListener('click', (e: MouseEvent) => {
-      const link = (e.target as HTMLElement).closest('[data-link]') as HTMLElement | null;
-      if (link) {
+      if (!(e.target instanceof HTMLElement)) return;
+
+      const link = e.target.closest('[data-link]');
+      if (link instanceof HTMLElement) {
         e.preventDefault();
         const href = link.getAttribute('href');
         if (href) this.navigate(href);

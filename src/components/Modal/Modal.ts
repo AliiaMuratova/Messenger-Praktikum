@@ -37,8 +37,9 @@ export class Modal extends Block<ModalProps> {
   }
 
   private _handleOverlayClick(e: TEvent) {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains('modal-wrapper') || target.closest('.close-button')) {
+    if (!(e.target instanceof HTMLElement)) return;
+
+    if (e.target.classList.contains('modal-wrapper') || e.target.closest('.close-button')) {
       this.close();
     }
   }

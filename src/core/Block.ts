@@ -197,9 +197,13 @@ export abstract class Block<P extends BlockProps = BlockProps> {
     this._removeEvents();
 
     const fragment = this.render();
-    const newElement = fragment.firstElementChild as HTMLElement;
+    const newElement = fragment.firstElementChild;
 
-    if (this._element && newElement) {
+    if (!(newElement instanceof HTMLElement)) {
+      return;
+    }
+
+    if (this._element) {
       this._element.replaceWith(newElement);
     }
 

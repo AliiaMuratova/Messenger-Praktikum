@@ -21,7 +21,8 @@ export class FileInput extends Block<FileInputProps> {
       placeholder: props.placeholder,
       events: {
         change: (e: TEvent) => {
-          const input = e.target as HTMLInputElement;
+          if (!(e.target instanceof HTMLInputElement)) return;
+          const input = e.target;
           const file = input.files?.[0];
           
           if (file) {

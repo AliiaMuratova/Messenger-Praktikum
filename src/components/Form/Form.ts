@@ -47,7 +47,16 @@ export class Form extends Block<FormProps> {
 
   private _handleInputBlur(input: Input) {
     const value = input.getValue();
-    const { isValid, message } = validateInput(input.getName() as ValidationType, value);
+    const inputName = input.getName();
+    const inputs = this.children.inputs as Input[];
+
+    let compareValue: string | undefined;
+    if (inputName === 'confirmPassword') {
+      const passwordInput = inputs.find(i => i.getName() === 'password');
+      compareValue = passwordInput?.getValue();
+    }
+
+    const { isValid, message } = validateInput(inputName as ValidationType, value, compareValue);
 
     requestAnimationFrame(() => {
       if (!input.element?.isConnected) return;
@@ -57,6 +66,13 @@ export class Form extends Block<FormProps> {
         value
       });
     });
+
+    if (inputName === 'password') {
+      const confirmInput = inputs.find(i => i.getName() === 'confirmPassword');
+      if (confirmInput?.getValue()) {
+        this._handleInputBlur(confirmInput);
+      }
+    }
   }
 
   private _handleFormSubmit(e: TEvent) {
@@ -66,27 +82,38 @@ export class Form extends Block<FormProps> {
     const inputs = (this.children.inputs || this.props.inputs) as Input[];
     if (!inputs || !Array.isArray(inputs)) return;
 
-    let isFormValid = true;
+    const passwordInput = inputs.find(i => i.getName() === 'password');
+    const passwordValue = passwordInput?.getValue();
 
-    inputs.forEach(input => {
+    const validationResults = inputs.map(input => {
       const value = input.getValue();
-      const { isValid, message } = validateInput(input.getName() as ValidationType, value);
+      const inputName = input.getName();
+      
+      let compareValue: string | undefined;
+      if (inputName === 'confirmPassword') {
+        compareValue = passwordValue;
+      }
+
+      const { isValid, message } = validateInput(inputName as ValidationType, value, compareValue);
 
       requestAnimationFrame(() => {
         if (!input.element?.isConnected) return;
         input.setProps({
           error: message,
           isError: !isValid,
-          value: value,
+          value,
         });
       });
 
-      if (!isValid) isFormValid = false;
+      return isValid;
     });
 
+    const isFormValid = validationResults.every(Boolean);
     if (!isFormValid) return;
 
-    const formData = new FormData(event.target as HTMLFormElement);
+    if (!(event.target instanceof HTMLFormElement)) return;
+
+    const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
     console.log('Данные формы:', data);
   }

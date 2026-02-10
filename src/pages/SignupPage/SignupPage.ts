@@ -13,7 +13,7 @@ export class SignupPage extends Block {
       new Input({ label: 'Фамилия', name: 'second_name',value: '' }),
       new Input({ label: 'Телефон', name: 'phone', type: 'phone', value: '' }),
       new Input({ label: 'Пароль', name: 'password', type: 'password', value: '', isPassword: true }),
-      new Input({ label: 'Пароль (еще раз)', name: 'repeat_password', isPassword: true, type: 'password', value: '' }),
+      new Input({ label: 'Пароль (еще раз)', name: 'confirmPassword', isPassword: true, type: 'password', value: '' }),
     ];
 
 
