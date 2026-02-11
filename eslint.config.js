@@ -1,8 +1,10 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
 export default [
   pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     languageOptions: {
       globals: {
@@ -18,7 +20,8 @@ export default [
       'semi': ['error', 'always'],
       'quotes': ['error', 'single'],
       'indent': ['error', 2],
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
       'eol-last': ['error', 'always']
     },
   },

@@ -1,37 +1,20 @@
 <div class="layout">
   <aside class="side-bar">
-    <img src="{{sendIcon}}" alt="icon">
+    <a href="/chat" data-link><img src="{{sendIcon}}" alt="icon" class="side-bar__back-button"></a>
   </aside>
 
   <main class="app">
     <div class="profile-page">
       <div class="avatar">
-        <img class="avatar__photo" src="" alt="photo">
-        <div class="avatar__change_photo">Поменять<br/> аватар</div>
-        <h1 class="avatar__name">Иван</h1>
+        <img class="avatar__photo" src="{{avatarSrc}}" alt="photo">
+        <div class="avatar__change_photo" data-modal>
+          Поменять<br /> аватар
+        </div>
+        <h1 class="avatar__name">{{name}}</h1>
       </div>
-
-      <form class="profile-form" action="" id="profileForm">
-        <fieldset class="profile-form__section">
-          <legend class="profile-form__hidden">Данные профиля</legend>
-          {{#each fields}}{{> ProfileInput}}{{/each}}
-        </fieldset>
-        {{> Button text="Сохранить" class="hidden" type="submit"}}
-      </form>
-
-      <div class="buttons">
-        <div class="buttons__btn">
-          <button type="button" id="editProfile">Изменить данные</button>
-        </div>
-
-        <div class="buttons__btn">
-          <button type="button" id="editPassword">Изменить пароль</button>
-        </div>
-
-        <div class="buttons__btn">
-          <a href="/login" class="red" data-link>Выйти</a>
-        </div>
-      </div>
+      {{{profileForm}}}
     </div>
   </main>
+
+  {{{changeAvatarModal}}}
 </div>

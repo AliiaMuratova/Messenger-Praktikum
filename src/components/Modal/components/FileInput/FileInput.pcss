@@ -1,0 +1,20 @@
+.file-input {
+  display: block;
+  cursor: pointer;
+
+  &__text {
+    font-size: var(--text-14);
+    color: var(--color-text-tertiary);
+    text-decoration: underline;
+  }
+
+  &__native {
+    display: none;
+  }
+
+  &--error &__text {
+    color: var(--color-text-error);
+    text-decoration: none;
+  }
+}
+

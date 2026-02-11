@@ -6,6 +6,10 @@
   justify-content: center;
   background-color: var(--color-bg-modal);
   z-index: var(--z-modal-backdrop);
+
+  &--hidden {
+    display: none;
+  }
 }
 
 .modal {
@@ -19,6 +23,18 @@
   padding: 40px 30px;
   border-radius: var(--radius-12);
   background-color: var(--color-bg);
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    height: 70%;
+
+    &--change-avatar {
+      height: 290px;
+    }
+  }
 
   &__title {
     font-weight: 500;
@@ -62,7 +78,7 @@
     content: ' ';
     position: absolute;
     left: 9px;
-    top: 0px;
+    top: 0;
     height: 18px;
     width: 1px;
     background-color: var(--black);

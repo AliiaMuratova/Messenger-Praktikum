@@ -1,7 +1,7 @@
 # Учебный проект Messenger
 ## Описание
 
-Messenger - реализован как SPA с клиентской маршрутизацией, с использованием шаблонизатора Handlebars.
+Messenger — SPA-приложение, построенное на собственной компонентной архитектуре с использованием шаблонизатора Handlebars.
 
 Список страниц:
 
@@ -13,35 +13,51 @@ Messenger - реализован как SPA с клиентской маршру
 - [Ошибка 404](https://messenger-app-praktikum.netlify.app/error404) - страница обработки ошибки 404
 - [Ошибка 500](https://messenger-app-praktikum.netlify.app/error500) - страница обработки ошибки 500
 
-## Стек
+## Функциональность
 
-- **JavaScript (ES6+)**
+- **Компонентная архитектура** — все UI-элементы построены на базовом классе `Block` с жизненным циклом (init, componentDidMount, componentDidUpdate, render)
+- **Реактивность** — автоматическое обновление компонентов при изменении props через Proxy и EventBus
+- **Валидация форм** — проверка полей (first_name, second_name, login, email, password, phone, message) с отображением ошибок
+- **Модальное окно** — загрузка аватара
+
+## Стек технологий
+
+- **TypeScript**
 - **Handlebars**
 - **Vite**
 - **PostCSS**
 - **ESLint**
+- **Stylelint**
+
 
 ## Структура проекта
 
 ```
-src/pages/               # Страницы приложения
-  NavigationPage/        # Навигация по страницам проекта
-  LoginPage/             # Страница входа
-  SignupPage/            # Страница регистрации
-  ChatPage/              # Страница чата с лентой диалогов и диалоговым окном
-  ProfilePage/           # Страница профиля юзера
-  ErrorPage/             # Страница ошибок
+src/core/                  # Ядро приложения
+    Block.ts               # Базовый класс компонентов
+    EventBus.ts            # Шина событий
 
-src/assets/              # Статические файлы(fonts, icons, images)
+src/pages/                 # Страницы приложения
+    NavigationPage/        # Навигация по страницам проекта
+    LoginPage/             # Страница входа
+    SignupPage/            # Страница регистрации
+    ChatPage/              # Страница чата с лентой диалогов и диалоговым окном
+    ProfilePage/           # Страница профиля юзера
+    ErrorPage/             # Страница ошибок
 
-src/components/          # Переиспользуемые компоненты
-  common/                # Общие переиспользуемые компоненты (Button, Input)
-  Form/                  # Компонент формы для страницы Входа и Регистрации
-  Modal/                 # Компонент модального окна
+src/assets/                # Статические файлы(fonts, icons, images)
+src/api/                   # HTTP-транспорт
 
-src/styles/              # Глобальные стили
-src/utils/               # Утилиты (регистрация паршалов, скрытие/открытие пароля)
+src/components/            # Переиспользуемые компоненты
+    common/                # Общие переиспользуемые компоненты (Button, Input)
+    Form/                  # Компонент формы для страницы Входа и Регистрации
+    Modal/                 # Компонент модального окна
 
+src/utils/                 # Утилиты
+    validation/            # Валидация полей форм
+
+src/styles/                # Глобальные стили
+src/types                  # Общие типы
 ```
 
 ## Установка и запуск
@@ -76,10 +92,14 @@ npm run build
 npm run preview
 ```
 
-### Линтинг
+### Линтинг и проверка типов
 
 ```bash
-npm run lint
+npm run lint          
+npm run lint:fix      
+npm run typecheck     
+npm run stylelint     
+npm run stylelint:fix 
 ```
 
 ## Ссылки

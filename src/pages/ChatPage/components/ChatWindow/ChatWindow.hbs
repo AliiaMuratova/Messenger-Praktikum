@@ -1,44 +1,24 @@
 <section class="dialog">
   <header class="dialog__header">
     <div class="dialog__header-img">
-      <img class="dialog__header-avatar" src="" alt="avatar">
+      <img class="dialog__header-avatar" src="{{avatar}}" alt="avatar">
     </div>
 
     <div class="dialog__header-name">
-      Имя
+      {{name}}
     </div>
-    <button class="dialog__header-menu" type="button" aria-label="Меню">
-      <img src={{dotsIcon}} alt="menu">
+
+    <button class="dialog__header-menu" type="button">
+      <img src="{{dotsIcon}}" alt="menu">
     </button>
   </header>
 
   <div class="dialog__messages">
-    <div class="dialog__messages-date">19 июня</div>
-    {{> MessageBubble text='Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то
-    момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали
-    с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты
-    с собой забрали только кассеты с пленкой.'
-    icon=readIcon
-    time='12:00'
-    }}
-    {{> MessageBubble text='Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так
-    никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'
-    icon=readIcon
-    time='12:00'
-    isIncoming=true
-    }}
-    {{> MessageBubble picture=pic icon=readIcon time='12:00' isIncoming=true}}
+    <div class="dialog__messages-date">{{date}}</div>
+    {{{messages}}}
   </div>
 
   <footer class="dialog__footer">
-    <form class="dialog__footer-form" id="sendMessageForm">
-      <div class="dialog__footer-file">
-        <img src={{fileIcon}} alt="file">
-      </div>
-      <input class="dialog__footer-input" type="text" name="message" placeholder="Сообщение">
-      <button class="dialog__footer-send" type="submit">
-        <img src={{sendIcon}} alt="send">
-      </button>
-    </form>
+    {{{messageForm}}}
   </footer>
 </section>
