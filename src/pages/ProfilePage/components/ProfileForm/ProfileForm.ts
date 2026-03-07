@@ -5,6 +5,10 @@ import template from './ProfileForm.hbs?raw';
 import { ProfileInput } from '../ProfileInput/ProfileInput';
 import { Button } from '@/components/common/Button';
 import './ProfileForm.pcss';
+import { handleError } from '@/utils/errorHandler/errorHandler';
+import { profileAPI, ProfileData, ProfilePassword } from '@/api/profile/profileAPI';
+import { Router } from '@/core/Router';
+import { authAPI } from '@/api/auth/AuthAPI';
 
 interface ProfileFormProps extends BlockProps {
   profileFields: ProfileInput[];
@@ -50,6 +54,7 @@ export class ProfileForm extends Block<ProfileFormProps> {
     const isEditProfile = button.id === 'editProfile';
     const isEditPassword = button.id === 'editPassword';
     const isCancelButton = button.id === 'cancelButton';
+    const isLogout = button.id === 'logout';
 
     if (isEditProfile || isEditPassword) {
       this.setChildrenProps('profileFields', { isReadonly: !isEditProfile });
@@ -73,6 +78,8 @@ export class ProfileForm extends Block<ProfileFormProps> {
         isEditMode: false,
         isPasswordMode: false
       });
+    } else if (isLogout) {
+      this.handleLogout();
     }
   }
 
@@ -95,7 +102,16 @@ export class ProfileForm extends Block<ProfileFormProps> {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    console.log('Данные формы:', data);
+
+    if (this.props.isPasswordMode) {
+      const passwordData: ProfilePassword = {
+        oldPassword: data.oldPassword as string,
+        newPassword: data.newPassword as string,
+      };
+      this.handleUpdatePassword(passwordData);
+    } else {
+      this.handleUpdateProfile(data as unknown as ProfileData);
+    }
 
     activeInputs.forEach(input => {
       const inputElement = input.element?.querySelector<HTMLInputElement>('input');
@@ -113,6 +129,31 @@ export class ProfileForm extends Block<ProfileFormProps> {
     });
   }
 
+  private async handleUpdateProfile(data: ProfileData): Promise<void> {
+    try {
+      await profileAPI.updateData(data);
+    } catch (error) {
+      handleError(error, { context: 'Обновление профиля' });
+    }
+  }
+
+  private async handleUpdatePassword(data: ProfilePassword): Promise<void> {
+    try {
+      await profileAPI.updatePassword(data);
+    } catch (error) {
+      handleError(error, { context: 'Обновление пароля' });
+    }
+  }
+
+  private async handleLogout(): Promise<void> {
+    try {
+      await authAPI.logout();
+      Router.getInstance().go('/');
+    } catch (error) {
+      handleError(error, { context: 'Выход из системы' });
+    }
+  }
+  
   render() {
     return this.compile(template, this.props);
   }

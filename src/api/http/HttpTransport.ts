@@ -1,3 +1,9 @@
+import { createApiError, NetworkError, TimeoutError } from './errors';
+
+interface ApiErrorResponse {
+  reason?: string;
+}
+
 export enum METHOD {
   GET = 'GET',
   POST = 'POST',
@@ -14,6 +20,7 @@ type RequestOptions<TData = unknown> = {
   headers?: Record<string, string>;
   timeout?: number;
   withCredentials?: boolean;
+  responseType?: XMLHttpRequestResponseType;
 };
 
 type OptionsWithoutMethod = Omit<RequestOptions, 'method'>;
@@ -56,7 +63,7 @@ export class HTTPTransport {
   public readonly delete = this.createMethod(METHOD.DELETE);
 
   private request<R>(url: string, options: RequestOptions): Promise<R> {
-    const { method = METHOD.GET, data, headers = {}, timeout = 5000, withCredentials = true } = options;
+    const { method = METHOD.GET, data, headers = {}, timeout = 5000, withCredentials = true, responseType = 'json' } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -83,16 +90,31 @@ export class HTTPTransport {
             resolve(xhr.response);
           }
         } else {
-          reject(xhr);
+          let reason = 'Неизвестная ошибка';
+
+          if (xhr.response && typeof xhr.response === 'object') {
+            reason = (xhr.response as ApiErrorResponse).reason ?? reason;
+          } else if (xhr.response && typeof xhr.response === 'string') {
+            try {
+              const response: ApiErrorResponse = JSON.parse(xhr.response);
+              reason = response.reason ?? reason;
+            } catch {
+              reason = xhr.response;
+            }
+          }
+
+          reject(createApiError(xhr.status, reason));
         }
       };
 
-      xhr.onabort = () => reject(new Error('Aborted'));
-      xhr.onerror = () => reject(new Error('Network Error'));
-      xhr.timeout = timeout;
-      xhr.ontimeout = () => reject(new Error('Request Timed Out'));
+      xhr.onabort = () => reject(new NetworkError('Запрос был отменён'));
+      xhr.onerror = () => reject(new NetworkError());
+      xhr.ontimeout = () => reject(new TimeoutError());
 
+
+      xhr.timeout = timeout;
       xhr.withCredentials = withCredentials;
+      xhr.responseType = responseType;
 
       if (method === METHOD.GET || !data) {
         xhr.send();

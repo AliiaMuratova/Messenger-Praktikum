@@ -13,6 +13,7 @@ interface FormProps extends BlockProps {
   linkText?: string;
   linkHref?: string;
   inputs: Input[];
+  onSubmit?: (data: Record<string, FormDataEntryValue>) => void;
 }
 
 export class Form extends Block<FormProps> {
@@ -115,7 +116,10 @@ export class Form extends Block<FormProps> {
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    console.log('Данные формы:', data);
+
+    if (this.props.onSubmit) {
+      this.props.onSubmit(data);
+    }
   }
 
 
