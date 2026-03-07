@@ -225,7 +225,6 @@ export abstract class Block<P extends BlockProps = BlockProps> {
     return this._element;
   }
 
-
   private _makePropsProxy(props: P): P {
     return new Proxy(props, {
       get: (target: P, prop: string) => {
