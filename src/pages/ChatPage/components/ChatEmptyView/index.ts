@@ -1,1 +1,0 @@
-export { ChatEmptyView } from './ChatEmptyView';

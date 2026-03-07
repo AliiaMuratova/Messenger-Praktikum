@@ -4,6 +4,8 @@ import template from './MessageBubble.hbs?raw';
 export interface MessageBubbleProps extends BlockProps {
   text?: string;
   time: string;
+  date?: string;
+  showDateSeparator?: boolean;
   icon?: string;
   picture?: string;
   isIncoming?: boolean;

@@ -6,6 +6,15 @@
   background-color: var(--color-bg);
   overflow: hidden;
 
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: var(--text-16);
+    color: var(--color-text-secondary);
+  }
+
   &__header {
     position: relative;
     display: flex;
@@ -49,8 +58,31 @@
       font-weight: var(--font-weight-600);
     }
 
+    &-actions {
+      position: relative;
+    }
+
     &-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: none;
+      background: none;
       cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+
+      &:hover {
+        background: var(--color-bg-tertiary, #f0f0f0);
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 

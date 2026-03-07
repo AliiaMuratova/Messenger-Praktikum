@@ -1,8 +1,20 @@
 <form class="message-form">
-  <label class="message-form__file">
-    <input type="file" name="file" id="file-upload" style="display: none;" />
-    <img src="{{fileIcon}}" alt="attach file" class="message-form__file-icon-cursor">
-  </label>
+  <div class="message-form__file">
+    <input type="file" class="message-form__file-input" />
+    <button class="message-form__file-button" type="button">
+      <img src="{{fileIcon}}" alt="add">
+    </button>
+    {{{menu}}}
+  </div>
+
+  <div class="message-form__preview {{#unless selectedFile}}message-form__preview--hidden{{/unless}}">
+    {{#if isImage}}
+      <img src="{{previewUrl}}" alt="preview" class="message-form__preview-image" />
+    {{else}}
+      <span class="message-form__preview-name">{{selectedFileName}}</span>
+    {{/if}}
+    <button type="button" class="message-form__preview-remove">✕</button>
+  </div>
 
   {{{input}}}
 

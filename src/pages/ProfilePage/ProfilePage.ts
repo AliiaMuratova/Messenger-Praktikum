@@ -9,14 +9,19 @@ import { ProfileForm } from './components/ProfileForm';
 import './Profile.pcss';
 import { TEvent } from '@/types/common';
 import { Modal } from '@/components/Modal';
+import { authAPI, UserData } from '@/api/auth/AuthAPI';
+import { profileAPI } from '@/api/profile/profileAPI';
+import { handleError, ValidationError } from '@/utils/errorHandler/errorHandler';
+import { BASE_URL } from '@/api/http/config';
+import { Router } from '@/core/Router';
 
 const profileFields: ProfileInputProps[] = [
-  { name: 'email', label: 'Почта', value: 'pochta@yandex.ru', type: 'email' },
-  { name: 'login', label: 'Логин', value: 'ivanivanov', type: 'text' },
-  { name: 'first_name', label: 'Имя', value: 'Иван', type: 'text' },
-  { name: 'second_name', label: 'Фамилия', value: 'Иванов', type: 'text' },
-  { name: 'display_name', label: 'Имя в чате', value: 'Иван', type: 'text' },
-  { name: 'phone', label: 'Телефон', value: '+79099673030', type: 'tel' },
+  { name: 'email', label: 'Почта', value: '', type: 'email' },
+  { name: 'login', label: 'Логин', value: '', type: 'text' },
+  { name: 'first_name', label: 'Имя', value: '', type: 'text' },
+  { name: 'second_name', label: 'Фамилия', value: '', type: 'text' },
+  { name: 'display_name', label: 'Имя в чате', value: '', type: 'text' },
+  { name: 'phone', label: 'Телефон', value: '', type: 'tel' },
 ];
 
 const passwordFields: ProfileInputProps[] = [
@@ -35,6 +40,8 @@ interface ProfilePageProps extends BlockProps {
 }
 
 export class ProfilePage extends Block<ProfilePageProps> {
+  private profileInputs: ProfileInput[] = [];
+
   constructor() {
     const profileInputs = profileFields.map(f => new ProfileInput({
       ...f,
@@ -70,7 +77,7 @@ export class ProfilePage extends Block<ProfilePageProps> {
 
     super({
       sendIcon,
-      name: 'Иван Иванов',
+      name: '',
       noImage,
       profileForm: new ProfileForm({
         profileFields: profileInputs,
@@ -82,16 +89,7 @@ export class ProfilePage extends Block<ProfilePageProps> {
         title: 'Загрузите файл',
         buttonText: 'Поменять',
         changeAvatar: true, 
-        onSubmit: () => {
-          const modal = this.children.changeAvatarModal as Modal;
-          const file = modal?.getFile();
-        
-          if (!file) {
-            return;
-          }
-          console.log('файл: ', file.name);
-          modal.close();
-        }
+        onSubmit: () => this.handleUpdateAvatar(),
       }),
       events: {
         click: (e: TEvent) => {
@@ -100,11 +98,63 @@ export class ProfilePage extends Block<ProfilePageProps> {
           if (e.target.closest('[data-modal]')) {
             (this.children.changeAvatarModal as Modal)?.open();
           }
+
+          if (e.target.closest('[data-back]')) {
+            Router.getInstance().go('/messenger');
+          }
         },
       },
     });
+
+    this.profileInputs = profileInputs;
   }
 
+  protected componentDidMount(): void {
+    this.loadUserData();
+  }
+
+  private async loadUserData(): Promise<void> {
+    try {
+      const user = await authAPI.getUser();
+      this.setUserData(user);
+    } catch (error) {
+      handleError(error, { context: 'Загрузка данных пользователя' });
+    }
+  }
+
+  private setUserData(user: UserData): void {
+    const displayName = `${user.first_name} ${user.second_name}`;
+    const avatar = user.avatar ? `${BASE_URL}resources${user.avatar}` : undefined;
+    
+    this.setProps({
+      name: displayName,
+      avatar,
+    });
+
+    this.profileInputs.forEach(input => {
+      const fieldName = input.getName() as keyof UserData;
+      const value = user[fieldName];
+      input.setProps({ value: value != null ? String(value) : '' });
+    });
+  }
+
+  private async handleUpdateAvatar(): Promise<void> {
+    const modal = this.children.changeAvatarModal as Modal;
+    const file = modal?.getFile();
+
+    if (!file) {
+      throw new ValidationError('Файл не выбран');
+    }
+
+    try {
+      const updatedUser = await profileAPI.updateAvatar(file);
+      const avatar = updatedUser.avatar ? `${BASE_URL}resources${updatedUser.avatar}` : undefined;
+      this.setProps({ avatar });
+      modal.close();
+    } catch (error) {
+      handleError(error, { context: 'Обновление аватара' });
+    }
+  }
 
   render() {
     const avatarSrc = this.props.avatar || noImage;

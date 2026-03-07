@@ -1,18 +1,18 @@
 <li class="dialog_item">
-  <div class="dialog_item__content">
+  <div class="dialog_item__content {{#if active}}dialog_item__content--active{{/if}}">
     <div class="dialog_item__img">
       <img class="dialog_item__avatar" src="{{avatar}}" alt="avatar">
     </div>
 
     <div class="dialog_item__info">
-      <div class="dialog_item__username">{{name}}</div>
-      <div class="dialog_item__message">{{message}}</div>
+      <div class="dialog_item__username">{{title}}</div>
+      <div class="dialog_item__message">{{#if message_prefix}}<span class="dialog_item__message-prefix">{{message_prefix}}</span> {{/if}}{{last_message}}</div>
     </div>
 
     <div class="dialog_item__counttime">
       <div class="dialog_item__time">{{time}}</div>
-      {{#if count}}
-        <div class="dialog_item__count">{{count}}</div>
+      {{#if unread_count}}
+        <div class="dialog_item__count">{{unread_count}}</div>
       {{/if}}
     </div>
   </div>

@@ -1,66 +1,106 @@
 # Учебный проект Messenger
 ## Описание
 
-Messenger — SPA-приложение, построенное на собственной компонентной архитектуре с использованием шаблонизатора Handlebars.
+Messenger — SPA-приложение, построенное на собственной компонентной архитектуре с использованием шаблонизатора Handlebars. Приложение реализует полноценный мессенджер с авторизацией, чатами и обменом сообщениями в реальном времени через WebSocket.
 
-Список страниц:
+## Страницы приложения
 
-- [Навигация](https://messenger-app-praktikum.netlify.app) - главная страница с навигацией
-- [Вход](https://messenger-app-praktikum.netlify.app/login) - страница входа
-- [Регистрация](https://messenger-app-praktikum.netlify.app/signup) - страница регистрации
-- [Чат](https://messenger-app-praktikum.netlify.app/chat) - страница с мессенджером (со списком чатов и диалоговым окном)
-- [Профиль](https://messenger-app-praktikum.netlify.app/profile) - страница управления профилем юзера
-- [Ошибка 404](https://messenger-app-praktikum.netlify.app/error404) - страница обработки ошибки 404
-- [Ошибка 500](https://messenger-app-praktikum.netlify.app/error500) - страница обработки ошибки 500
+- [Вход](https://messenger-app-praktikum.netlify.app) - страница входа
+- [Регистрация](https://messenger-app-praktikum.netlify.app/sign-up) - страница регистрации
+- [Чат](https://messenger-app-praktikum.netlify.app/messenger) - страница с мессенджером (со списком чатов и диалоговым окном)
+- [Профиль](https://messenger-app-praktikum.netlify.app/settings) - страница управления профилем юзера
+- [Ошибка 404](https://messenger-app-praktikum.netlify.app/404) - страница обработки ошибки 404
+- [Ошибка 500](https://messenger-app-praktikum.netlify.app/500) - страница обработки ошибки 500
 
 ## Функциональность
 
-- **Компонентная архитектура** — все UI-элементы построены на базовом классе `Block` с жизненным циклом (init, componentDidMount, componentDidUpdate, render)
-- **Реактивность** — автоматическое обновление компонентов при изменении props через Proxy и EventBus
-- **Валидация форм** — проверка полей (first_name, second_name, login, email, password, phone, message) с отображением ошибок
-- **Модальное окно** — загрузка аватара
+### Компонентная архитектура
+- Базовый класс `Block` с полным жизненным циклом (init, componentDidMount, componentDidUpdate, render)
+- Реактивное обновление компонентов через Proxy и EventBus
+- Поддержка вложенных компонентов и списков
+
+### Роутинг
+- Собственный SPA-роутер с History API
+- Защищённые маршруты
+- Обработка 404 ошибок
+
+### Авторизация
+- Регистрация и вход пользователей
+- Сохранение сессии через cookies
+- Автоматический редирект при отсутствии авторизации
+
+### Чаты и сообщения
+- Создание, удаление чатов
+- Добавление/удаление пользователей в чат
+- Обмен сообщениями в реальном времени через WebSocket
+- Отправка изображений
+- Подгрузка истории сообщений
+
+### Профиль
+- Редактирование данных пользователя
+- Смена аватара
+- Изменение пароля
+
+### Валидация форм
+- Проверка полей: имя, фамилия, логин, email, пароль, телефон
+- Отображение ошибок валидации
+
+### Обработка ошибок
+- Типизированные ошибки API (UnauthorizedError, NotFoundError, ValidationError и др.)
+- Централизованная обработка через errorHandler
+- Редирект на страницу 500 при серверных ошибках
 
 ## Стек технологий
 
-- **TypeScript**
-- **Handlebars**
-- **Vite**
-- **PostCSS**
-- **ESLint**
-- **Stylelint**
-
+- **TypeScript** — типизация
+- **Handlebars** — шаблонизатор
+- **Vite** — сборщик
+- **PostCSS** — стили с вложенностью
+- **ESLint** — линтинг кода
+- **Stylelint** — линтинг стилей
 
 ## Структура проекта
 
 ```
-src/core/                  # Ядро приложения
-    Block.ts               # Базовый класс компонентов
-    EventBus.ts            # Шина событий
-
-src/pages/                 # Страницы приложения
-    NavigationPage/        # Навигация по страницам проекта
-    LoginPage/             # Страница входа
-    SignupPage/            # Страница регистрации
-    ChatPage/              # Страница чата с лентой диалогов и диалоговым окном
-    ProfilePage/           # Страница профиля юзера
-    ErrorPage/             # Страница ошибок
-
-src/assets/                # Статические файлы(fonts, icons, images)
-src/api/                   # HTTP-транспорт
-
-src/components/            # Переиспользуемые компоненты
-    common/                # Общие переиспользуемые компоненты (Button, Input)
-    Form/                  # Компонент формы для страницы Входа и Регистрации
-    Modal/                 # Компонент модального окна
-
-src/utils/                 # Утилиты
-    validation/            # Валидация полей форм
-
-src/styles/                # Глобальные стили
-src/types                  # Общие типы
+src/
+├── api/                      # Работа с API
+│   ├── auth/                 # Авторизация (signIn, signUp, logout, getUser)
+│   ├── http/                 # HTTP-транспорт и типизированные ошибки
+│   ├── messenger/            # Чаты и сообщения
+│   ├── profile/              # Профиль пользователя
+│   ├── resources/            # Загрузка файлов
+│   ├── user/                 # Поиск пользователей
+│   └── websocket/            # WebSocket-транспорт
+│
+├── components/               # Переиспользуемые компоненты
+│   ├── common/               # Button, Input
+│   ├── Form/                 # Форма авторизации/регистрации
+│   └── Modal/                # Модальное окно
+│
+├── core/                     # Ядро приложения
+│   ├── Block.ts              # Базовый класс компонентов
+│   ├── EventBus.ts           # Шина событий
+│   └── Router.ts             # SPA-роутер
+│
+├── pages/                    # Страницы
+│   ├── LoginPage/            # Вход
+│   ├── SignupPage/           # Регистрация
+│   ├── ChatPage/             # Мессенджер
+│   ├── ProfilePage/          # Профиль
+│   └── ErrorPage/            # Страницы ошибок
+│
+├── utils/                    # Утилиты
+│   ├── errorHandler/         # Обработка ошибок
+│   ├── validation/           # Валидация форм
+│   └── helpers/              # Вспомогательные функции
+│
+├── assets/                   # Статика (шрифты, иконки, изображения)
+├── styles/                   # Глобальные стили
+└── types/                    # Общие типы TypeScript
 ```
 
 ## Установка и запуск
+
 ### Установка зависимостей
 
 ```bash
@@ -72,7 +112,7 @@ npm install
 ```bash
 npm run start
 ```
-Команда собирает проект и запускает его на 3000 порту
+Собирает проект и запускает на порту 3000
 
 ### Запуск dev-сервера
 
@@ -95,10 +135,10 @@ npm run preview
 ### Линтинг и проверка типов
 
 ```bash
-npm run lint          
-npm run lint:fix      
-npm run typecheck     
-npm run stylelint     
+npm run lint
+npm run lint:fix
+npm run typecheck
+npm run stylelint
 npm run stylelint:fix 
 ```
 
