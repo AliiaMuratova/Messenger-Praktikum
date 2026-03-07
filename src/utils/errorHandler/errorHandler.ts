@@ -60,6 +60,10 @@ export function handleError(error: unknown, options: ErrorHandlerOptions = {}): 
   }
 
   if (error instanceof ValidationError) {
+    if (error.reason ==='User already in system') {
+      Router.getInstance().go('/messenger');
+      return;
+    }
     console.error(`[Валидация]${contextPrefix} ${error.reason}`);
     onValidationError?.(error.reason);
     return;
