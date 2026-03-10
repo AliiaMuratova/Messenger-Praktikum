@@ -1,33 +1,30 @@
-import { Block } from '@/core/Block';
-import { NavigationPage } from '@/pages/NavigationPage';
+import { Router } from '@/core/Router';
 import { LoginPage } from '@/pages/LoginPage';
 import { SignupPage } from '@/pages/SignupPage';
 import { ChatPage } from '@/pages/ChatPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { Error404Page, Error500Page } from '@/pages/ErrorPage';
 
-type BlockConstructor = new () => Block;
-
 export class App {
-  private routes: Record<string, BlockConstructor>;
+  private router: Router;
 
   constructor() {
-    this.routes = {
-      '/': NavigationPage,
-      '/login': LoginPage,
-      '/signup': SignupPage,
-      '/chat': ChatPage,
-      '/profile': ProfilePage,
-      '/error404': Error404Page,
-      '/error500': Error500Page,
-    };
-
-    this.init();
+    this.router = new Router('#app');
+    this.registerRoutes();
+    this.initLinkHandler();
   }
 
-  init(): void {
-    this.render();
+  private registerRoutes(): void {
+    this.router
+      .use('/', LoginPage)
+      .use('/sign-up', SignupPage)
+      .use('/messenger', ChatPage)
+      .use('/settings', ProfilePage)
+      .use('/500', Error500Page)
+      .notFound('/404', Error404Page);
+  }
 
+  private initLinkHandler(): void {
     document.addEventListener('click', (e: MouseEvent) => {
       if (!(e.target instanceof HTMLElement)) return;
 
@@ -35,29 +32,14 @@ export class App {
       if (link instanceof HTMLElement) {
         e.preventDefault();
         const href = link.getAttribute('href');
-        if (href) this.navigate(href);
+        if (href) {
+          this.router.go(href);
+        }
       }
     });
-
-    window.addEventListener('popstate', () => this.render());
   }
 
-  render(): void {
-    const path = window.location.pathname;
-    const PageClass = this.routes[path] || this.routes['/error404'];
-
-    const root = document.getElementById('app');
-    if (!root) throw new Error('Element #app not found');
-
-    const page = new PageClass();
-
-    root.innerHTML = '';
-    root.append(page.getContent());
-    page.dispatchComponentDidMount();
-  }
-
-  navigate(path: string): void {
-    window.history.pushState({}, '', path);
-    this.render();
+  start(): void {
+    this.router.start();
   }
 }

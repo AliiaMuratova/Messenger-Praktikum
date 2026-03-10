@@ -3,6 +3,7 @@ import { TEvent } from '@/types/common';
 import template from './Modal.hbs?raw';
 import './Modal.pcss';
 import { FileInput } from '@/components/Modal/components/FileInput';
+import { Input } from '../common/Input';
 
 
 interface ModalProps extends BlockProps {
@@ -11,7 +12,6 @@ interface ModalProps extends BlockProps {
   isOpen?: boolean;
   changeAvatar?: boolean;
   content?: Block;
-  fileInput?: FileInput;
 
   onClose?: () => void;
   onSubmit?: (e: SubmitEvent) => void;
@@ -62,7 +62,16 @@ export class Modal extends Block<ModalProps> {
   public getFile(): File | null {
     return (this.children.fileInput as FileInput)?.getFile() || null;
   }
-  
+
+  public getInputValue(): string {
+    const content = this.children.content as Input;
+    return content?.getValue?.() || '';
+  }
+
+  public resetInput(): void {
+    const content = this.children.content as Input;
+    content?.setProps?.({ value: '' });
+  }
 
   render() {
     return this.compile(template, this.props);

@@ -28,6 +28,10 @@
     &:hover {
       background-color: var(--color-bg-selected);
     }
+
+    &--active {
+      background-color: var(--color-bg-selected);
+    }
   }
 
   &__img {
@@ -78,6 +82,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
+
+    &-prefix {
+      font-weight: var(--font-weight-600);
+      color: var(--color-text-primary);
+    }
   }
 
   &__counttime {

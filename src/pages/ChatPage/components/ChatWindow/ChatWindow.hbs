@@ -1,4 +1,5 @@
 <section class="dialog">
+  {{#if isSelected}}
   <header class="dialog__header">
     <div class="dialog__header-img">
       <img class="dialog__header-avatar" src="{{avatar}}" alt="avatar">
@@ -8,17 +9,24 @@
       {{name}}
     </div>
 
-    <button class="dialog__header-menu" type="button">
-      <img src="{{dotsIcon}}" alt="menu">
-    </button>
+    <div class="dialog__header-actions">
+      <button class="dialog__header-menu" type="button">
+        <img src="{{menuIcon}}" alt="menu">
+      </button>
+      {{{ menu }}}
+    </div>
   </header>
 
   <div class="dialog__messages">
-    <div class="dialog__messages-date">{{date}}</div>
     {{{messages}}}
   </div>
 
   <footer class="dialog__footer">
     {{{messageForm}}}
   </footer>
+  {{else}}
+  <div class="dialog__placeholder">
+    Выберите, кому хотели бы написать
+  </div>
+  {{/if}}
 </section>

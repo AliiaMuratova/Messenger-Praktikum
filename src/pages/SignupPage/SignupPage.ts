@@ -2,6 +2,9 @@ import { Form } from '@/components/Form';
 import { Block } from '@/core/Block';
 import { Input } from '@/components/common/Input';
 import template from './Signup.hbs?raw';
+import { authAPI, SignUpData } from '@/api/auth/AuthAPI';
+import { Router } from '@/core/Router';
+import { handleError } from '@/utils/errorHandler/errorHandler';
 
 
 export class SignupPage extends Block {
@@ -23,10 +26,23 @@ export class SignupPage extends Block {
         formId: 'signupForm',
         buttonText: 'Зарегистрироваться',
         linkText: 'Войти',
-        linkHref: '/login',
+        linkHref: '/',
         inputs,
+        onSubmit: (data) => this.handleSignUp(data as unknown as SignUpData),
       }),
     });
+  }
+
+  private async handleSignUp(data: SignUpData) {
+    try {
+      await authAPI.signUp(data);
+      Router.getInstance().go('/messenger');
+    } catch (error) {
+      handleError(error, { 
+        context: 'Регистрация',
+        redirectOnUnauthorized: false
+      });
+    }
   }
 
   render() {

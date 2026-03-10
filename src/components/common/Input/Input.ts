@@ -85,8 +85,8 @@ export class Input extends Block<InputProps> {
       value: currentValue,
     });
 
-    const input = this.element?.querySelector('input') as HTMLInputElement | null;
-    if (input) {
+    const input = this.element?.querySelector('input');
+    if (input instanceof HTMLInputElement) {
       input.focus();
       const length = currentValue.length;
       input.setSelectionRange(length, length);

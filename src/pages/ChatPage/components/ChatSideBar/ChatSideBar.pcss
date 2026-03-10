@@ -6,6 +6,23 @@
   background-color: var(--color-bg-secondary);
   border-right: 1px solid var(--color-border);
 
+  &__search-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__add-chat-button {
+    color: var(--color-text-secondary);
+      font-size: var(--text-14);
+      background-size: 9px 9px;
+      padding-right: 15px;
+      cursor: pointer;
+  }
+
+  &__add-chat-button:hover {
+    color: var(--color-text-tertiary);
+  }
+
   &__search {
     position: relative;
     display: flex;
@@ -26,7 +43,6 @@
     &-profile {
       color: var(--color-text-secondary);
       font-size: var(--text-14);
-      margin-left: auto;
       background: url('../../../../assets/icons/arrow.svg') no-repeat right;
       background-size: 9px 9px;
       padding-right: 15px;
