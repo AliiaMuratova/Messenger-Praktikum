@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["mocha", "chai", "node"],
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": false,
+    "noEmit": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*", "test/**/*"]
+}
+

@@ -58,6 +58,8 @@ Messenger — SPA-приложение, построенное на собств
 - **PostCSS** — стили с вложенностью
 - **ESLint** — линтинг кода
 - **Stylelint** — линтинг стилей
+- **Mocha + Chai** — тестирование
+- **Husky** — pre-commit хуки
 
 ## Структура проекта
 
@@ -137,10 +139,29 @@ npm run preview
 ```bash
 npm run lint
 npm run lint:fix
+npm run lint:all
 npm run typecheck
-npm run stylelint
+npm run stylelint    
 npm run stylelint:fix 
 ```
+
+### Тестирование
+
+```bash
+npm run test
+```
+
+Тесты написаны с использованием **Mocha** и **Chai**. Покрыты:
+- `Router` — маршрутизация
+- `Block` — базовый компонент
+- `HTTPTransport` — HTTP-запросы
+- `Button`, `Input` — UI-компоненты
+
+### Pre-commit хуки
+
+При коммите автоматически запускаются:
+- Тесты (`npm run test`)
+- Все линтеры (`npm run lint:all`)
 
 ## Ссылки
 

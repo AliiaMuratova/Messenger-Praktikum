@@ -99,7 +99,9 @@ export abstract class Block<P extends BlockProps = BlockProps> {
     }
     this._render();
   }
-  protected componentDidUpdate(_oldProps: P, _newProps: P): boolean {
+  protected componentDidUpdate(oldProps: P, newProps: P): boolean {
+    void oldProps;
+    void newProps;
     return true;
   }
 
