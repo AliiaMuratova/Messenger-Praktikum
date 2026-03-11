@@ -13,28 +13,51 @@
     "start": "vite build && vite preview",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
+    "lint:all": "npm-run-all lint stylelint typecheck",
     "typecheck": "tsc --noEmit",
     "stylelint": "stylelint \"src/**/*.pcss\"",
-    "stylelint:fix": "stylelint \"src/**/*.pcss\" --fix"
+    "stylelint:fix": "stylelint \"src/**/*.pcss\" --fix",
+    "test": "mocha",
+    "prepare": "husky"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test lint:all"
+    }
   },
   "dependencies": {
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
-    "@types/node": "^25.0.10",
+    "@types/chai": "^5.2.3",
+    "@types/jsdom": "^28.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.4.0",
+    "@types/sinon": "^21.0.0",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.53.1",
     "autoprefixer": "^10.4.23",
+    "chai": "^6.2.2",
     "eslint": "^9.0.0",
     "globals": "^15.0.0",
-    "postcss": "^8.5.6",
+    "husky": "^9.1.7",
+    "jsdom": "^28.1.0",
+    "mocha": "^11.3.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.5.8",
     "postcss-nested": "^7.0.2",
-    "stylelint": "^17.1.1",
+    "postcss-scss": "^4.0.9",
+    "sinon": "^21.0.2",
+    "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.53.1",
-    "vite": "^7.2.4",
-    "vite-plugin-handlebars": "^2.0.0"
+    "vite": "^6.1.6",
+    "vite-plugin-handlebars": "^1.5.0"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.3"
   }
 }

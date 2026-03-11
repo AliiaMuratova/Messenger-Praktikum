@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vite/client"],
+    "types": ["vite/client", "mocha", "node", "chai"],
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -29,7 +29,7 @@
 
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules", "dist"]
 }
 
