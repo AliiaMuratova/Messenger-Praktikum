@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, PluginOption } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -18,7 +18,7 @@ export default defineConfig({
     emptyOutDir: true
   },
   plugins: [
-    handlebars(),
+    handlebars() as PluginOption,
   ],
   resolve: {
     alias: {
